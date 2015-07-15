@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name ="struts.enable.DynamicMethodInvocation" value= "true" />
+	<constant name="struts.devMode" value="true" />
+	<package name="default" extends="struts-default" namespace="/">
+		<action name="login" class="org.action.LoginAction">
+			<result name="success" type="redirect">/welcome.jsp</result>
+			<result name="error">/login.jsp</result>
+			<result name="loginerror">/loginerror.jsp</result>
+		</action>
+		<action name="signup" class="org.action.SignupAction">
+			<result name="success">/index.jsp</result>
+			<result name="usererror">/signuperror.jsp</result>
+			<result name="pswderror">/pswderror.jsp</result>
+		</action>
+		<action name="detailinfo" class="org.action.DetailInfoAction">
+			<result name="success">/info.jsp</result>
+		</action>
+		<action name="changepassword" class="org.action.ChangePasswordAction">
+			<result name="success">/info.jsp</result>
+			<result name="oldpassworderror">/oldpassworderror.jsp</result>
+			<result name="notequal">/notequal.jsp</result>
+		</action>
+	</package>
+</struts>
