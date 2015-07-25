@@ -35,6 +35,8 @@ import="java.util.*,
 		
 	    <!-- Bootstrap core CSS -->
 	    <link href="css/bootstrap.css" rel="stylesheet">
+	    
+	    <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 	</head>
 	<body>
 	<%
@@ -302,14 +304,14 @@ import="java.util.*,
 	
 	<div class="container" id="quickreply">
 	    <span>..:: 快速回复 ::..</span>
-	    <form action="quickpost" method="post" class="form-horizontal">
-	    	<input name="smboidid" type="hidden" value=""/>
-	        <div class="form-group col-md-12">
+	    <form action="quickreply" method="post" class="form-horizontal">
+	    	<input name="postid" type="hidden" value="<%=pId%>"/>
+	        <!-- <div class="form-group col-md-12">
 	            <label for="title" class="col-md-1 control-label">主题：</label>
 	            <div class="col-md-11">
 	                <input name="title" id="topic" type="text" class="form-control"/>
 	            </div>
-	        </div>
+	        </div> -->
 	        <div class="form-group">
 	            <label for="content" class="control-label col-md-1">内容：</label>
 	            <div class="col-md-11">
@@ -320,7 +322,7 @@ import="java.util.*,
 	        <div class="form-group">
 	            <div class="col-md-1"></div>
 	            <div class="col-md-9">
-	                <input type="submit" value="发表新帖" id="submit" class="btn-danger"/>
+	                <input type="submit" value="发表回复" id="submit" class="btn-danger"/>
 	            </div>
 	        </div>
 	    </form>

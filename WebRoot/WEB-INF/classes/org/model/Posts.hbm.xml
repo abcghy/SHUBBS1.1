@@ -23,7 +23,7 @@
             <column name="createtime" length="19" />
         </property>
         <property name="content" type="java.lang.String">
-            <column name="content" length="2000" />
+            <column name="content" length="65535" />
         </property>
         <property name="goodcount" type="java.lang.Integer">
             <column name="goodcount" />

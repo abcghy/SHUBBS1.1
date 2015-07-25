@@ -37,6 +37,7 @@ pageEncoding="utf-8"%>
 	
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
+    
     <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 </head>
 

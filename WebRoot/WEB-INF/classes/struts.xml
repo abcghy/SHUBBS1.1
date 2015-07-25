@@ -25,10 +25,10 @@
 			<result name="notequal">/notequal.jsp</result>
 		</action>
 		<action name="quickpost" class="org.action.QuickPostAction">
-			<result name="success">/welcome.jsp</result>
+			<result name="success">/CachePage/postcache.jsp</result>
 		</action>
-		<action name="ckeditora" class="org.action.CkeditorAction">
-			<result name="success">/Test/Test.jsp</result>
+		<action name="quickreply" class="org.action.QuickReplyAction">
+			<result name="success">/CachePage/replycache.jsp</result>
 		</action>
 	</package>
 </struts>
