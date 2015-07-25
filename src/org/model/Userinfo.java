@@ -25,7 +25,6 @@ public class Userinfo implements java.io.Serializable {
 	private Integer roleid;
 	private Set postses = new HashSet(0);
 	private Set replies = new HashSet(0);
-	private Set bigboards = new HashSet(0);
 
 	// Constructors
 
@@ -46,8 +45,7 @@ public class Userinfo implements java.io.Serializable {
 	/** full constructor */
 	public Userinfo(String admin, String pwd, String email, String sex,
 			Date birthdate, String phone, String headpicurl, Integer userlevel,
-			Timestamp registerdate, Integer roleid, Set postses, Set replies,
-			Set bigboards) {
+			Timestamp registerdate, Integer roleid, Set postses, Set replies) {
 		this.admin = admin;
 		this.pwd = pwd;
 		this.email = email;
@@ -60,7 +58,6 @@ public class Userinfo implements java.io.Serializable {
 		this.roleid = roleid;
 		this.postses = postses;
 		this.replies = replies;
-		this.bigboards = bigboards;
 	}
 
 	// Property accessors
@@ -159,14 +156,6 @@ public class Userinfo implements java.io.Serializable {
 
 	public void setReplies(Set replies) {
 		this.replies = replies;
-	}
-
-	public Set getBigboards() {
-		return this.bigboards;
-	}
-
-	public void setBigboards(Set bigboards) {
-		this.bigboards = bigboards;
 	}
 
 }

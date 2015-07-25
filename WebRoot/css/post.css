@@ -1,0 +1,19 @@
+body {
+    padding-top: 60px;
+}
+.placeNow {
+    padding: 0 18px;
+    padding-bottom: 10px;
+}
+.post {
+    padding: 0 15px;
+}
+.author {
+    vertical-align: top !important;
+    line-height: 2 !important;
+}
+#quickreply {
+    border: 1px solid #ac2925;
+    font-family: "Hiragino Sans GB";
+    margin-bottom: 10px;
+}

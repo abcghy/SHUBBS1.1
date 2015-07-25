@@ -15,7 +15,6 @@ public class Reply implements java.io.Serializable {
 	private Posts posts;
 	private String replyContent;
 	private Timestamp replyCreatetime;
-	private Integer replyFloor;
 
 	// Constructors
 
@@ -30,13 +29,12 @@ public class Reply implements java.io.Serializable {
 
 	/** full constructor */
 	public Reply(Long replyId, Userinfo userinfo, Posts posts,
-			String replyContent, Timestamp replyCreatetime, Integer replyFloor) {
+			String replyContent, Timestamp replyCreatetime) {
 		this.replyId = replyId;
 		this.userinfo = userinfo;
 		this.posts = posts;
 		this.replyContent = replyContent;
 		this.replyCreatetime = replyCreatetime;
-		this.replyFloor = replyFloor;
 	}
 
 	// Property accessors
@@ -79,14 +77,6 @@ public class Reply implements java.io.Serializable {
 
 	public void setReplyCreatetime(Timestamp replyCreatetime) {
 		this.replyCreatetime = replyCreatetime;
-	}
-
-	public Integer getReplyFloor() {
-		return this.replyFloor;
-	}
-
-	public void setReplyFloor(Integer replyFloor) {
-		this.replyFloor = replyFloor;
 	}
 
 }

@@ -1,23 +1,32 @@
-<%@page import="org.apache.struts2.ServletActionContext"%>
-<%@ page language="java" 
+<%@ page language="java"
 	import="java.util.*,
-		com.opensymphony.xwork2.ActionContext"
-pageEncoding="utf-8"%>
+		com.opensymphony.xwork2.ActionContext,
+		org.util.HibernateSessionFactory,
+		org.apache.struts2.ServletActionContext,
+		org.hibernate.Session,
+		org.hibernate.Query,
+		java.util.List,
+		org.model.Bigboard,
+		org.model.Smallboard"
+	pageEncoding="utf-8"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<head>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<link rel="icon" href="../../favicon.ico">
+	<link rel="icon" href="http://v3.bootcss.com/favicon.ico">
 	
 	<title>Home</title>
 	
@@ -25,17 +34,7 @@ pageEncoding="utf-8"%>
 	<link href="css/bootstrap.css" rel="stylesheet">
 	
 	<!-- Custom styles for this template -->
-	<link href="css/jumbotron.css" rel="stylesheet">
-	
-	<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-	<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-	<script src="js/ie-emulation-modes-warning.js"></script>
-	
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-			      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-			      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-	<![endif]-->
+	<link href="css/carousel.css" rel="stylesheet">
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -68,7 +67,6 @@ pageEncoding="utf-8"%>
 			} else {
 				System.out.println("We don't have user!");
 			}
-			
 		%>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
@@ -81,50 +79,108 @@ pageEncoding="utf-8"%>
 	</div>
 	</nav>
 
-	<!-- Main jumbotron for a primary marketing message or call to action -->
-	<div class="jumbotron">
-		<div class="container">
-			<h1>上大论坛</h1>
-			<h3>这是上海大学的第一论坛</h3>
-			<br /> <br /> <br /> <br />
-			<!--<p><a class="btn btn-primary btn-lg" href="#" role="button">查看制作团队</a></p>-->
+	<div id="myCarousel" class="carousel slide" data-ride="carousel">
+		<!-- Indicators -->
+		<ol class="carousel-indicators">
+			<li data-target="#myCarousel" data-slide-to="0" class=""></li>
+			<li data-target="#myCarousel" data-slide-to="1" class="active"></li>
+			<li data-target="#myCarousel" data-slide-to="2" class=""></li>
+		</ol>
+		<div class="carousel-inner" role="listbox">
+			<div class="item">
+				<img class="first-slide" src="images/shubg2.jpg" alt="First slide">
+				<div class="container">
+					<div class="carousel-caption">
+						<h1>官方资讯</h1>
+						<p>此版块由校园官方管理，发布校园新闻、官方动态等资讯。</p>
+						<p>子板块分类：校园资讯、社区学院、新生区、学生会招聘、校园专题。</p>
+					</div>
+				</div>
+			</div>
+			<div class="item active">
+				<img class="second-slide" src="images/shubg1.png" alt="Second slide">
+
+				<div class="container">
+					<div class="carousel-caption">
+						<h1>上海大学</h1>
+						<p>讨论版旨在同学们自由交流，由学生自主管理。已注册学生可以在各个子版块中发帖、回帖，对校园新闻或兴趣爱好等进行讨论。</p>
+						<p>子版块：校园周边、吃喝玩乐、时政讨论、文学艺术、游戏数码、影视专区...</p>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<img class="third-slide" src="images/shubg3.jpg" alt="Third slide">
+
+				<div class="container">
+					<div class="carousel-caption">
+						<h1>上海大学</h1>
+						<p>跳蚤市场提供学生自己的交易平台和实习招聘资讯。</p>
+						<p>子版块：二手专区、兼职招聘。</p>
+					</div>
+				</div>
+			</div>
 		</div>
+		<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"> 
+			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		</a>
+		<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
 	</div>
+	
+	<%
+		Session session1 = HibernateSessionFactory.getSession();
+		Query query1 = session1.createQuery("from Bigboard order by biboid");
+		List<Bigboard> list1 = query1.list();
+	%>
 
 	<div class="container">
-		<!-- Example row of columns -->
-		<div class="row">
-			<div class="col-md-4">
-				<h2>校园資訊</h2>
-				<p>此版块由校园官方管理，发布校园新闻、官方动态等资讯。</p>
-				<p>子板块分类：校园资讯、社区学院、新生区、学生会招聘、校园专题。</p>
-				<p>
-					<a class="btn btn-default" href="#" role="button">進入板塊 &raquo;</a>
-				</p>
-			</div>
-			<div class="col-md-4">
-				<h2>讨论区</h2>
-				<p>讨论版旨在同学们自由交流，由学生自主管理。已注册学生可以在各个子版块中发帖、回帖，对校园新闻或兴趣爱好等进行讨论。</p>
-				<p>子版块：校园周边、吃喝玩乐、时政讨论、文学艺术、游戏数码、影视专区、体坛风采。</p>
-				<p>
-					<a class="btn btn-default" href="#" role="button">進入板塊 &raquo;</a>
-				</p>
-			</div>
-			<div class="col-md-4">
-				<h2>跳蚤市场</h2>
-				<p>跳蚤市场提供学生自己的交易平台和实习招聘资讯。</p>
-				<p>子版块：二手专区、兼职招聘。</p>
-				<p>
-					<a class="btn btn-default" href="#" role="button">進入板塊 &raquo;</a>
-				</p>
-			</div>
-		</div>
+		<%
+			if (list1.size() > 0) {
+				for (int i = 0; i < list1.size(); i++) {
+					out.println("<table class=\"table table-striped table-bordered\">");
+					out.println("<caption>" + list1.get(i).getBiBoTitle() + "</caption><tbody>");
+					//看看多少个子模块，然后决定由几个<tr>
+					Query query2 = session1.createQuery("select count(*) from Smallboard where biboid=" + i);
+					long smallNumber = (Long) query2.uniqueResult();
+					Query query3 = session1.createQuery("from Smallboard where biboid=" + i + "order by smboidid desc");
+					List<Smallboard> list3 = query3.list();
+					int flag = 0;
+					out.println("<tr>");
+					while(smallNumber > 0) {
+						Query query4 = session1.createQuery("select count(*) from Posts where smboidid=" + list3.get((int)smallNumber-1).getSmBoidid());
+						long postNumber = (Long) query4.uniqueResult();
+						out.println("<td width=\"32.9%\" align=\"center\"><a href=\"smallBoard.jsp?aId=" + list3.get((int)smallNumber-1).getSmBoidid() + "\">" + list3.get((int)smallNumber-1).getSmBoTitle() + "</a><br/>帖子数：" + postNumber + "</td>");
+						flag++;
+						if (flag == 3) {
+							flag = 0;
+							out.println("</tr>");
+						}
+						smallNumber--;
+					}
+					if(flag != 0) {
+						while(flag < 3) {
+							out.println("<td width=\"32.9%\" align=\"center\">&nbsp;</td>");
+							flag++;
+						}
+					}
+					out.println("</tr></tbody><table>");
+				}
+			}
+		%>
 
-		<hr>
+	<hr>
 
-		<footer>
-		<p>&copy; SHUBBS</p>
-		</footer>
+	<footer>
+	<p class="pull-right">
+		<a href="#">Back to top</a>
+	</p>
+	<p>
+		&copy; SHUBBS · <a href="#">Privacy</a> · <a href="#">Terms</a>
+	</p>
+	</footer>
 	</div>
 	<!-- /container -->
 
@@ -134,7 +190,6 @@ pageEncoding="utf-8"%>
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	<script src="js/ie10-viewport-bug-workaround.js"></script>
+	<%session1.close(); %>
 </body>
 </html>

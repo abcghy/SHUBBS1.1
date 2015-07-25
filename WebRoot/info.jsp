@@ -10,7 +10,9 @@
 	pageEncoding="utf-8"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <%
 	HttpServletRequest request1 = ServletActionContext.getRequest();
@@ -31,7 +33,8 @@
 		System.out.println("We don't have user!");
 	}
 	Session session1 = HibernateSessionFactory.getSession();
-	Query query = session1.createQuery("from Userinfo where admin=\'" + username + "\'");
+	Query query = session1.createQuery("from Userinfo where admin=\'"
+			+ username + "\'");
 	List<Userinfo> list = query.list();
 	Userinfo ui = list.get(0);
 	String email = ui.getEmail();
@@ -89,37 +92,39 @@
 	<div class="container">
 		<!-- Example row of columns -->
 		<div class="row">
-			<div class="col-md-2"></div>
-			<div class="col-md-8">
-				<div class="autoinfo">
-					<div class="headimg col-md-2">
-						<img src="images/headimg.gif" alt="头像" width="80" height="80" />
-						<button class="btn btn-primary">修改头像</button>
-					</div>
-					<div class="rightinfo col-md-10" style="font-size: 20px;">
-						<div class="col-md-4">
-							<ul class="list-unstyled">
-								<li><p class="form-control-static">
-										用户名：<span style="color: deepskyblue;"><%=username%></span>
-									</p></li>
-								<li><p class="form-control-static">
-										等级：<span style="color: deepskyblue;"><%=userlevel%></span>
-									</p></li>
-							</ul>
+			<div class="col-md-12">
+				<div class="container">
+					<div class="autoinfo">
+						<div class="headimg col-md-2">
+							<img src="images/headimg.gif" alt="头像" width="80" height="80" />
+							<button class="btn btn-primary">修改头像</button>
 						</div>
-						<div class="col-md-8">
-							<ul class="list-unstyled">
-								<li><p class="form-control-static">
-										邮箱：<span style="color: deepskyblue;"><%=email%></span>
-									</p></li>
-								<li><p class="form-control-static">
-										注册时间：<span style="color: deepskyblue;"><%=registerDate%></span>
-									</p></li>
-							</ul>
+						<div class="rightinfo col-md-10" style="font-size: 20px;">
+							<div class="col-md-4">
+								<ul class="list-unstyled">
+									<li><p class="form-control-static">
+											用户名：<span style="color: deepskyblue;"><%=username%></span>
+										</p></li>
+									<li><p class="form-control-static">
+											等级：<span style="color: deepskyblue;"><%=userlevel%></span>
+										</p></li>
+								</ul>
+							</div>
+							<div class="col-md-8">
+								<ul class="list-unstyled">
+									<li><p class="form-control-static">
+											邮箱：<span style="color: deepskyblue;"><%=email%></span>
+										</p></li>
+									<li><p class="form-control-static">
+											注册时间：<span style="color: deepskyblue;"><%=registerDate%></span>
+										</p></li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
-				<br /> <br /> <br /> <br /> <br /> <br />
+
+
 				<hr />
 				<p style="text-align: center;font-family: 幼圆;font-size: 10px;">详细资料</p>
 				<div class="details">
@@ -128,47 +133,39 @@
 							<label for="sex2" class="col-md-2 control-label">性别：</label>
 							<div id="sex2" class="col-md-10">
 								<div class="radio-inline">
-									<label> 
-										<input type="radio" name="sex" id="secret" value="保密" 
-										<%
-											if(sex.equals("保密")) {
-												out.print("checked");
-											}
-										%>
-										 /> 保密
+									<label> <input type="radio" name="sex" id="secret"
+										value="保密"
+										<%if (sex.equals("保密")) {
+				out.print("checked");
+			}%> />
+										保密
 									</label>
 								</div>
 								<div class="radio-inline">
-									<label>
-										<input type="radio" name="sex" id="male" value="男" 
+									<label> <input type="radio" name="sex" id="male" value="男"
 										<%
-											if(sex.equals("男")) {
+											if (sex.equals("男")) {
 												out.print("checked");
-											}
-										%>
-										/> 男
+										}%> />
+										男
 									</label>
 								</div>
 								<div class="radio-inline">
-									<label> 
-										<input type="radio" name="sex" id="female" value="女" 
-										<%
-											if(sex.equals("女")) {
-												out.print("checked");
-											}
-										%>
-										/> 女
+									<label> <input type="radio" name="sex" id="female"
+										value="女"
+										<%if (sex.equals("女")) {
+				out.print("checked");
+			}%> />
+										女
 									</label>
 								</div>
 								<div class="radio-inline">
-									<label> 
-										<input type="radio" name="sex" id="else" value="其他" 
-										<%
-											if(sex.equals("其他")) {
-												out.print("checked");
-											}
-										%>
-										/> 其他
+									<label> <input type="radio" name="sex" id="else"
+										value="其他"
+										<%if (sex.equals("其他")) {
+				out.print("checked");
+			}%> />
+										其他
 									</label>
 								</div>
 							</div>
@@ -176,13 +173,15 @@
 						<div class="form-group">
 							<label for="birthdate" class="col-md-2 control-label">出生日期：</label>
 							<div class="col-md-10">
-								<input type="text" name="birthdate" id="birthdate" class="form-control col-md-10" value="<%=birthdate%>"/>
+								<input type="text" name="birthdate" id="birthdate"
+									class="form-control col-md-10" value="<%=birthdate%>" />
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="phonenumber" class="control-label col-md-2">手机号：</label>
 							<div class="col-md-10">
-								<input type="text" name="phonenumber" id="phonenumber" class="form-control" value="<%=phonenumber%> "/>
+								<input type="text" name="phonenumber" id="phonenumber"
+									class="form-control" value="<%=phonenumber%> " />
 							</div>
 						</div>
 						<div class="form-group">
@@ -227,7 +226,6 @@
 					</form>
 				</div>
 			</div>
-			<div class="col-md-2"></div>
 		</div>
 
 		<hr>
@@ -246,6 +244,6 @@
 	<script src="js/bootstrap.min.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="js/ie10-viewport-bug-workaround.js"></script>
-
+	<%session1.close(); %>
 </body>
 </html>

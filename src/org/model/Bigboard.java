@@ -12,8 +12,8 @@ public class Bigboard implements java.io.Serializable {
 	// Fields
 
 	private Integer biBoid;
-	private Userinfo userinfo;
 	private String biBoTitle;
+	private String brief;
 	private Set smallboards = new HashSet(0);
 
 	// Constructors
@@ -28,11 +28,11 @@ public class Bigboard implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Bigboard(Integer biBoid, Userinfo userinfo, String biBoTitle,
+	public Bigboard(Integer biBoid, String biBoTitle, String brief,
 			Set smallboards) {
 		this.biBoid = biBoid;
-		this.userinfo = userinfo;
 		this.biBoTitle = biBoTitle;
+		this.brief = brief;
 		this.smallboards = smallboards;
 	}
 
@@ -46,20 +46,20 @@ public class Bigboard implements java.io.Serializable {
 		this.biBoid = biBoid;
 	}
 
-	public Userinfo getUserinfo() {
-		return this.userinfo;
-	}
-
-	public void setUserinfo(Userinfo userinfo) {
-		this.userinfo = userinfo;
-	}
-
 	public String getBiBoTitle() {
 		return this.biBoTitle;
 	}
 
 	public void setBiBoTitle(String biBoTitle) {
 		this.biBoTitle = biBoTitle;
+	}
+
+	public String getBrief() {
+		return this.brief;
+	}
+
+	public void setBrief(String brief) {
+		this.brief = brief;
 	}
 
 	public Set getSmallboards() {

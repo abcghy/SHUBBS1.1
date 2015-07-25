@@ -49,11 +49,5 @@
             </key>
             <one-to-many class="org.model.Reply" />
         </set>
-        <set name="bigboards" inverse="true">
-            <key>
-                <column name="admin" length="16" />
-            </key>
-            <one-to-many class="org.model.Bigboard" />
-        </set>
     </class>
 </hibernate-mapping>

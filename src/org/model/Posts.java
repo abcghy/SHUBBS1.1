@@ -17,11 +17,10 @@ public class Posts implements java.io.Serializable {
 	private Smallboard smallboard;
 	private String title;
 	private Timestamp createtime;
-	private Timestamp updatetime;
 	private String content;
 	private Integer goodcount;
-	private String reply;
-	private String good;
+	private Integer reply;
+	private Integer essence;
 	private Set replies = new HashSet(0);
 
 	// Constructors
@@ -37,19 +36,17 @@ public class Posts implements java.io.Serializable {
 
 	/** full constructor */
 	public Posts(Integer postid, Userinfo userinfo, Smallboard smallboard,
-			String title, Timestamp createtime, Timestamp updatetime,
-			String content, Integer goodcount, String reply, String good,
-			Set replies) {
+			String title, Timestamp createtime, String content,
+			Integer goodcount, Integer reply, Integer essence, Set replies) {
 		this.postid = postid;
 		this.userinfo = userinfo;
 		this.smallboard = smallboard;
 		this.title = title;
 		this.createtime = createtime;
-		this.updatetime = updatetime;
 		this.content = content;
 		this.goodcount = goodcount;
 		this.reply = reply;
-		this.good = good;
+		this.essence = essence;
 		this.replies = replies;
 	}
 
@@ -95,14 +92,6 @@ public class Posts implements java.io.Serializable {
 		this.createtime = createtime;
 	}
 
-	public Timestamp getUpdatetime() {
-		return this.updatetime;
-	}
-
-	public void setUpdatetime(Timestamp updatetime) {
-		this.updatetime = updatetime;
-	}
-
 	public String getContent() {
 		return this.content;
 	}
@@ -119,20 +108,20 @@ public class Posts implements java.io.Serializable {
 		this.goodcount = goodcount;
 	}
 
-	public String getReply() {
+	public Integer getReply() {
 		return this.reply;
 	}
 
-	public void setReply(String reply) {
+	public void setReply(Integer reply) {
 		this.reply = reply;
 	}
 
-	public String getGood() {
-		return this.good;
+	public Integer getEssence() {
+		return this.essence;
 	}
 
-	public void setGood(String good) {
-		this.good = good;
+	public void setEssence(Integer essence) {
+		this.essence = essence;
 	}
 
 	public Set getReplies() {

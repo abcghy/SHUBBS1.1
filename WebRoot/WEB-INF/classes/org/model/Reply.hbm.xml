@@ -7,7 +7,7 @@
 <hibernate-mapping>
     <class name="org.model.Reply" table="reply" catalog="shubbs">
         <id name="replyId" type="java.lang.Long">
-            <column name="Reply_id" />
+            <column name="reply_id" />
             <generator class="assigned" />
         </id>
         <many-to-one name="userinfo" class="org.model.Userinfo" fetch="select">
@@ -17,13 +17,10 @@
             <column name="postid" />
         </many-to-one>
         <property name="replyContent" type="java.lang.String">
-            <column name="Reply_content" length="200" />
+            <column name="reply_content" length="65535" />
         </property>
         <property name="replyCreatetime" type="java.sql.Timestamp">
-            <column name="Reply_createtime" length="19" />
-        </property>
-        <property name="replyFloor" type="java.lang.Integer">
-            <column name="Reply_floor" />
+            <column name="reply_createtime" length="19" />
         </property>
     </class>
 </hibernate-mapping>

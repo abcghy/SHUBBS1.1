@@ -10,11 +10,11 @@
             <column name="BiBoid" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="userinfo" class="org.model.Userinfo" fetch="select">
-            <column name="admin" length="16" />
-        </many-to-one>
         <property name="biBoTitle" type="java.lang.String">
             <column name="BiBo_title" length="50" />
+        </property>
+        <property name="brief" type="java.lang.String">
+            <column name="brief" length="2000" />
         </property>
         <set name="smallboards" inverse="true">
             <key>

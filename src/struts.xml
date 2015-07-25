@@ -24,5 +24,11 @@
 			<result name="oldpassworderror">/oldpassworderror.jsp</result>
 			<result name="notequal">/notequal.jsp</result>
 		</action>
+		<action name="quickpost" class="org.action.QuickPostAction">
+			<result name="success">/welcome.jsp</result>
+		</action>
+		<action name="ckeditora" class="org.action.CkeditorAction">
+			<result name="success">/Test/Test.jsp</result>
+		</action>
 	</package>
 </struts>

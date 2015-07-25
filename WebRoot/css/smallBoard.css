@@ -1,0 +1,22 @@
+body {
+    padding-top: 60px;
+}
+.smallBoard {
+    padding: 0 15px;
+    text-align: center !important;
+}
+.placeNow {
+    padding: 0 18px;
+    padding-bottom: 10px;
+}
+tr {
+    text-align: center !important;
+}
+.thread {
+    text-align: left;
+}
+#quickpost {
+    border: 1px solid #ac2925;
+    font-family: "Hiragino Sans GB";
+    margin-bottom: 10px;
+}

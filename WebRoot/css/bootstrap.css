@@ -2251,6 +2251,7 @@ pre code {
 }
 table {
   background-color: transparent;
+  font-size: 14px;
 }
 caption {
   padding-top: 8px;
@@ -2259,12 +2260,12 @@ caption {
   text-align: left;
 }
 th {
-  text-align: left;
+  text-align: center !important;
 }
 .table {
   width: 100%;
   max-width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .table > thead > tr > th,
 .table > tbody > tr > th,
@@ -2274,7 +2275,7 @@ th {
 .table > tfoot > tr > td {
   padding: 8px;
   line-height: 1.42857143;
-  vertical-align: top;
+  vertical-align: middle;
   border-top: 1px solid #ddd;
 }
 .table > thead > tr > th {
@@ -4323,9 +4324,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   float: left;
   height: 50px;
   padding: 15px 15px;
-  font-size: 28px;
+  font-size: 18px;
   line-height: 20px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .navbar-brand:hover,
 .navbar-brand:focus {
@@ -4760,7 +4760,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination {
   display: inline-block;
   padding-left: 0;
-  margin: 20px 0;
+  margin: 10px 15px;
   border-radius: 4px;
 }
 .pagination > li {

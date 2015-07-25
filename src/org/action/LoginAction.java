@@ -43,9 +43,6 @@ public class LoginAction extends ActionSupport{
 			for (Cookie cookie : cookies) {
 				if (cookie.getName().equals("username")) {
 					username = cookie.getValue();
-				}
-				if (cookie.getName().equals("password")) {
-					password = cookie.getValue();
 					return SUCCESS;
 				}
 			}

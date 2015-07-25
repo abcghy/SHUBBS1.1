@@ -7,7 +7,7 @@
 <hibernate-mapping>
     <class name="org.model.Posts" table="posts" catalog="shubbs">
         <id name="postid" type="java.lang.Integer">
-            <column name="Postid" />
+            <column name="postid" />
             <generator class="assigned" />
         </id>
         <many-to-one name="userinfo" class="org.model.Userinfo" fetch="select">
@@ -22,20 +22,17 @@
         <property name="createtime" type="java.sql.Timestamp">
             <column name="createtime" length="19" />
         </property>
-        <property name="updatetime" type="java.sql.Timestamp">
-            <column name="updatetime" length="19" />
-        </property>
         <property name="content" type="java.lang.String">
             <column name="content" length="2000" />
         </property>
         <property name="goodcount" type="java.lang.Integer">
             <column name="goodcount" />
         </property>
-        <property name="reply" type="java.lang.String">
+        <property name="reply" type="java.lang.Integer">
             <column name="reply" />
         </property>
-        <property name="good" type="java.lang.String">
-            <column name="good" />
+        <property name="essence" type="java.lang.Integer">
+            <column name="essence" />
         </property>
         <set name="replies" inverse="true">
             <key>
