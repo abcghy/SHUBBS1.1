@@ -88,11 +88,23 @@ pageEncoding="utf-8"%>
 	            <a class="navbar-brand" href="welcome.jsp">SHUBBS</a>
 	        </div>
 	        <div id="navbar" class="navbar-collapse collapse">
-	            <ul class="nav navbar-nav navbar-right">
-	                <li><a href="welcome.jsp">Home</a></li>
-	                <li><a href="info.jsp"><%=username%></a></li>
-	                <li><a href="login!logout">Exit</a></li>
-	            </ul>
+	            <%if(username != null) { %>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="active"><a href="welcome.jsp">Home</a></li>
+						<li><a href="info.jsp"><%=username%></a></li>
+						<li><a href="login!logout">Exit</a></li>
+					</ul>
+				<%} else {%>
+					<form class="navbar-form navbar-right" method="post" action="login">
+						<div class="form-group">
+							<input type="text" placeholder="Username" name="username" class="form-control">
+						</div>
+						<div class="form-group">
+							<input type="password" placeholder="Password" name="password" class="form-control">
+						</div>
+						<button type="submit" class="btn btn-success">登录</button>
+					</form>
+				<%}%>
 	        </div>
 	    </div>
 	</nav>
@@ -282,6 +294,7 @@ pageEncoding="utf-8"%>
 	   	<a href="smallBoard.jsp?aId=<%=aId%>"><%=smFindBiglist.get(0).getSmBoTitle()%></a>
 	</div>
 	
+	<%if (username != null) { %>
 	<div class="container" id="quickpost">
 	    <span>..:: 快速发贴 ::..</span>
 	    <form action="quickpost" method="post" class="form-horizontal">
@@ -307,6 +320,7 @@ pageEncoding="utf-8"%>
 	        </div>
 	    </form>
 	</div>
+	<%} %>
 	
 	<!-- FOOTER -->
 	<footer >

@@ -30,5 +30,11 @@
 		<action name="quickreply" class="org.action.QuickReplyAction">
 			<result name="success">/CachePage/replycache.jsp</result>
 		</action>
+		<action name="addModule" class="org.action.AddModule">
+			<result name="success">/dashboard.jsp?func=module</result>
+		</action>
+		<action name="deleteModule" class="org.action.DeleteModule">
+			<result name="success">/dashboard.jsp?func=module</result>
+		</action>
 	</package>
 </struts>

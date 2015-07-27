@@ -1,3 +1,4 @@
 eclipse.preferences.version=1
-validator.Checked=WebRoot/js/jquery.min.js,WebRoot/ckeditor/ckeditor.js,WebRoot/ckeditor/samples/toolbarconfigurator/js/toolbartextmodifier.js,WebRoot/ckeditor/samples/toolbarconfigurator/js/toolbarmodifier.js
+validator.Checked=WebRoot/js/jquery.min.js,WebRoot/ckeditor/ckeditor.js,src/struts.xml
+validator.Revalidate=true
 validator.Unchecked=

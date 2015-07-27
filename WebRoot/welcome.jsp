@@ -1,5 +1,5 @@
 <%@ page language="java"
-	import="java.util.*,
+import="java.util.*,
 		com.opensymphony.xwork2.ActionContext,
 		org.util.HibernateSessionFactory,
 		org.apache.struts2.ServletActionContext,
@@ -8,7 +8,7 @@
 		java.util.List,
 		org.model.Bigboard,
 		org.model.Smallboard"
-	pageEncoding="utf-8"%>
+pageEncoding="utf-8"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -18,7 +18,7 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-	<head>
+<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,17 +38,17 @@
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
-	<div class="container">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-				aria-controls="navbar">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="welcome.jsp">SHUBBS</a>
-		</div>
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="welcome.jsp">SHUBBS</a>
+			</div>
 		<%
 			HttpServletRequest request1 = ServletActionContext.getRequest();
 			Cookie[] cookies = request1.getCookies();
@@ -68,15 +68,26 @@
 				System.out.println("We don't have user!");
 			}
 		%>
-		<div id="navbar" class="navbar-collapse collapse">
-			<ul class="nav navbar-nav navbar-right">
-				<li class="active"><a href="welcome.jsp">Home</a></li>
-				<li><a href="info.jsp"><%=username%></a></li>
-				<li><a href="login!logout">Exit</a></li>
-			</ul>
+			<div id="navbar" class="navbar-collapse collapse">
+				<%if(username != null) { %>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="active"><a href="welcome.jsp">Home</a></li>
+						<li><a href="info.jsp"><%=username%></a></li>
+						<li><a href="login!logout">Exit</a></li>
+					</ul>
+				<%} else {%>
+					<form class="navbar-form navbar-right" method="post" action="login">
+						<div class="form-group">
+							<input type="text" placeholder="Username" name="username" class="form-control">
+						</div>
+						<div class="form-group">
+							<input type="password" placeholder="Password" name="password" class="form-control">
+						</div>
+						<button type="submit" class="btn btn-success">登录</button>
+					</form>
+				<%}%>
+			</div>
 		</div>
-		<!--/.navbar-collapse -->
-	</div>
 	</nav>
 
 	<div id="myCarousel" class="carousel slide" data-ride="carousel">
