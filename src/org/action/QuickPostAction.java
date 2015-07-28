@@ -62,6 +62,7 @@ public class QuickPostAction extends ActionSupport{
 		
 		Session session = HibernateSessionFactory.getSession();
 		Transaction trans = session.beginTransaction();
+		trans.begin();
 		Posts post = new Posts();
 		Query smboidFindPostIdQuery = session.createQuery("from Posts order by postid desc");
 		smboidFindPostIdQuery.setFirstResult(0);

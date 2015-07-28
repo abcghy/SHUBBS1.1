@@ -28,6 +28,7 @@ public class AddModule extends ActionSupport{
 	public String execute() throws Exception {
 		Session session = HibernateSessionFactory.getSession();
 		Transaction trans = session.beginTransaction();
+		trans.begin();
 		Smallboard sb = new Smallboard();
 		Bigboard bb = new Bigboard();
 		bb.setBiBoid(getBiboid());

@@ -55,6 +55,7 @@ public class QuickReplyAction extends ActionSupport{
 		
 		Session session = HibernateSessionFactory.getSession();
 		Transaction trans = session.beginTransaction();
+		trans.begin();
 		Reply reply = new Reply();
 		Query postidFindReplyIdQuery = session.createQuery("from Reply order by reply_id desc");
 		postidFindReplyIdQuery.setFirstResult(0);

@@ -16,6 +16,34 @@ public class Test {
 
 	public static void main(String[] args) {
 		Session session1 = HibernateSessionFactory.getSession();
+		
+		Query findUserQuery = session1.createQuery("from Userinfo where admin='duidui3'");
+		List<Userinfo> findUserList = findUserQuery.list();
+		Userinfo ui = findUserList.get(0);
+		Transaction trans = session1.beginTransaction();
+		session1.delete(ui);
+		trans.commit();
+		session1.clear();
+		session1.close();
+		
+//		for (int i = 0; i < 100; i++) {
+//			Transaction trans = session1.beginTransaction();
+//			Userinfo ui = new Userinfo();
+//			ui.setAdmin("duidui" + i);
+//			ui.setPwd("duidui" + i);
+//			ui.setEmail("duidui" + i + "@163.com");
+//			ui.setUserlevel(1);
+//			Timestamp ts = new Timestamp(new Date().getTime());
+//			ui.setRegisterdate(ts);
+//			session1.save(ui);
+//			trans.commit();
+//		}
+//		session1.close();
+		
+//		Query query = session1.createQuery("from Userinfo where admin='abc123'");
+//		List<Userinfo> list = query.list();
+//		Userinfo ui = list.get(0);
+//		System.out.println(ui.getSex() == null);
 //		Query pageNumFindPostQuery = session1.createQuery("from Posts where smboidid="+ 9 + " order by postid desc");
 //		pageNumFindPostQuery.setFirstResult(30);
 //		pageNumFindPostQuery.setMaxResults(30);

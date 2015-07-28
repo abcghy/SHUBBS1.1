@@ -28,6 +28,7 @@ public class DeleteModule extends ActionSupport{
 		List<Smallboard> smList = smQuery.list();
 		Smallboard theSM = smList.get(0);
 		Transaction trans = session.beginTransaction();
+		trans.begin();
 		session.delete(theSM);
 		trans.commit();
 		session.close();

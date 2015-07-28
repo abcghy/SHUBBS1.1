@@ -8,7 +8,8 @@
 		java.util.List,
 		org.model.Bigboard,
 		org.model.Smallboard,
-		org.model.Userinfo"
+		org.model.Userinfo,
+		org.util.Time"
 	pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
@@ -114,7 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<%if (function.equals("module")) { %>
 				<div class="left-look col-md-5">
 					<h2 class="sub-header">版块一览</h2>
-						<div class="table-responsice">
+						<div class="table-responsive">
 						<%
 							Query bigBoardQuery = session1.createQuery("from Bigboard");
 							List<Bigboard> bigBoardList = bigBoardQuery.list();
@@ -154,8 +155,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="right-look col-md-6">
 					<h2 class="sub-header">添加板块</h2>
 					<form action="addModule" method="post">
-						<label for="biboid">父板块：</label>
-						<select class="form-control" name="biboid" id="biboid">
+						<label for="biboidaddmo">父板块：</label>
+						<select class="form-control" name="biboid" id="biboidaddmo">
 							<%
 							for (int i = 0; i < bigBoardList.size(); i++) { 
 								Bigboard theBigBoard = bigBoardList.get(i);
@@ -163,8 +164,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<option value="<%=theBigBoard.getBiBoid()%>"><%=theBigBoard.getBiBoTitle()%></option>
 							<%} %>
 						</select><br/>
-						<label for="smbotitle">新添板块名称:</label>
-						<input name="smbotitle" id="smbotitle" type="text" class="form-control"/><br/>
+						<label for="smbotitleaddmo">新添板块名称:</label>
+						<input name="smbotitle" id="smbotitleaddmo" type="text" class="form-control"/><br/>
 						<input type="submit" value="添加板块" class="btn btn-info"/>
 					</form>
 				</div>
@@ -172,14 +173,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="right-look col-md-6">
 					<h2 class="sub-header">删除板块</h2>
 					<form action="deleteModule" method="post">
-						<label for="smboidid">子版块：</label>
-						<select class="form-control" name="smboidid" id="smboidid">
+						<%-- <label for="biboiddelmo">父板块：</label>
+						<select class="form-control" name="biboid" id="biboiddelmo" onchange="showSmBoId(this.value)">
+							<option value="">---请选择---</option>
+							<%
+							for (int i = 0; i < bigBoardList.size(); i++) { 
+								Bigboard theBigBoard = bigBoardList.get(i);
+							%>
+								<option value="<%=theBigBoard.getBiBoid()%>"><%=theBigBoard.getBiBoTitle()%></option>
+							<%} %>
+						</select> --%>
+						<label for="smboididdelmo">子版块：</label>
+						<select class="form-control" name="smboidid" id="smboididdelmo">
+							<!-- <option value="">---请先选择父板块---</option> -->
 							<%
 								Query smQuery = session1.createQuery("from Smallboard");
 								List<Smallboard> smList = smQuery.list();
 								for (int i = 0; i < smList.size(); i++) {
 									Smallboard theSM = smList.get(i);
-							%>	
+							%>
 							<option value="<%=theSM.getSmBoidid()%>"><%=theSM.getSmBoTitle()%></option>
 							<%} %>
 						</select><br/>
@@ -196,13 +208,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<%} else if (function.equals("user")) { %>
 					<h2 class="sub-header">用户管理</h2>
 					<%
-						Query userQuery = session1.createQuery("from Userinfo order by userlevel desc");
+						Query userQuery = session1.createQuery("from Userinfo");
 						List<Userinfo> userList = userQuery.list();
 					%>
 					<p>共有<span style="color: red;"><%=userList.size()%></span>条记录</p>
 					<table class="table table-bordered table-striped table-hover">
 						<thead>
 							<tr>
+								<th>操作</th>
 								<th>用户名</th>
 								<th>邮箱</th>
 								<th>性别</th>
@@ -218,13 +231,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								Userinfo theUI = userList.get(i);
 						%>
 							<tr>
-								<td><%=theUI.getAdmin()%></td>
+								<td><input type="button" class="btn btn-danger delete" value="删除"/></td>
+								<td class="username"><%=theUI.getAdmin()%></td>
 								<td><%=theUI.getEmail()%></td>
 								<td><%=theUI.getSex()%></td>
-								<td><%=theUI.getBirthdate()%></td>
+								<td><%if(theUI.getBirthdate() == null) {
+									out.print(theUI.getBirthdate());
+								} else {
+									out.print(Time.format(theUI.getBirthdate()));
+								}%></td>
 								<td><%=theUI.getPhone()%></td>
 								<td><%=theUI.getUserlevel()%></td>
-								<td><%=theUI.getRegisterdate()%></td>
+								<td><%=Time.fullFormat(theUI.getRegisterdate())%></td>
 							</tr>
 						<%} %>
 						</tbody>
@@ -235,6 +253,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 	</div>
+	<!-- Bootstrap core JavaScript
+	    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".delete").click(function() {
+				var xmlhttp;
+				xmlhttp = new XMLHttpRequest();
+				var username = $(this).parent().next().text();
+				xmlhttp.open("get", "userdel.jsp?username="+username, true);
+				xmlhttp.send();
+				setTimeout(location.reload(true), 2000);
+			});
+		});
+	</script>
+	
 	<%session1.close(); %>
 </body>
 </html>

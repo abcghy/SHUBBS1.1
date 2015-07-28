@@ -41,9 +41,20 @@
 	String registerDate = ui.getRegisterdate().toString();
 	String userlevel = ui.getUserlevel().toString();
 	String phonenumber = ui.getPhone();
+	if (phonenumber == null) {
+		phonenumber = "";
+	}
 	String sex = ui.getSex();
+	if (sex == null) {
+		sex = "";
+	}
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	String birthdate = sdf.format(ui.getBirthdate());
+	String birthdate = null;
+	if (ui.getBirthdate() == null) {
+		birthdate = "";
+	} else {
+		birthdate = sdf.format(ui.getBirthdate());
+	}
 %>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">

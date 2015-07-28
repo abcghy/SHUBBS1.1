@@ -69,6 +69,7 @@ public class SignupAction extends ActionSupport {
 			return "usererror";
 		} else if (flag == 1) {
 			Transaction trans = session.beginTransaction();
+			trans.begin();
 			Date date = new Date();
 			Timestamp timestamp = new Timestamp(date.getTime());
 			Userinfo userinfo = new Userinfo(usernamesignup, passwordsignup,

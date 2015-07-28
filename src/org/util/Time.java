@@ -1,6 +1,7 @@
 package org.util;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Time {
@@ -30,7 +31,25 @@ public class Time {
         } else {
             return (day + "天" + hour + "小时");
         }
-        
-        
+	}
+	
+	public static String format(Date date) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(date);
+	}
+	
+	public static String format(Timestamp timestamp) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(timestamp);
+	}
+	
+	public static String fullFormat(Date date) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+		return sdf.format(date);
+	}
+	
+	public static String fullFormat(Timestamp timestamp) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+		return sdf.format(timestamp);
 	}
 }

@@ -53,6 +53,7 @@ public class DetailInfoAction extends ActionSupport{
 		}
 		Session session = HibernateSessionFactory.getSession();
 		Transaction trans = session.beginTransaction();
+		trans.begin();
 		Query query = session.createQuery("from Userinfo where admin=\'" + username + "\'");
 		List<Userinfo> list = query.list();
 		Userinfo ui = list.get(0);

@@ -167,10 +167,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		List<Reply> usernameFindPostIdList = usernameFindPostIdQuery.list();
 		Reply theReply = usernameFindPostIdList.get(0);
 		int postid = theReply.getPosts().getPostid();
-		long replyid = theReply.getReplyId();
+		Query postIdFindPageQuery = session1.createQuery("select count(*) from Reply where postid=" + postid);
 		
-		final int NUMPERPAGE = 30;
-		long howManyPost = (Long) replyid;
+		final int NUMPERPAGE = 20;
+		long howManyPost = (Long) postIdFindPageQuery.uniqueResult();
 		long howManyPage = howManyPost / NUMPERPAGE + 1;
 		
 		String content = 3+";URL=post.jsp?pId="+postid+"&pageNum="+howManyPage;
