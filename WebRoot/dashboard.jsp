@@ -39,6 +39,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <body>
 	<%
+		HttpServletRequest request1 = ServletActionContext.getRequest();
+		Cookie[] cookies = request1.getCookies();
+		String username = null;
+		String password = null;
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("username")) {
+					username = cookie.getValue();
+				}
+				if (cookie.getName().equals("password")) {
+					password = cookie.getValue();
+					break;
+				}
+			}
+		} else {
+			System.out.println("We don't have user!");
+		}
+		if(username == null) {
+			response.sendRedirect(basePath+"login!login");
+		}
+	%>
+	<%
 		String function = request.getParameter("func");
 		if (function == null) {
 			function = "module";
@@ -57,25 +79,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</button>
 			<a class="navbar-brand" href="welcome.jsp">SHUBBS</a>
 		</div>
-		<%
-				HttpServletRequest request1 = ServletActionContext.getRequest();
-				Cookie[] cookies = request1.getCookies();
-				String username = null;
-				String password = null;
-				if (cookies != null) {
-					for (Cookie cookie : cookies) {
-						if (cookie.getName().equals("username")) {
-							username = cookie.getValue();
-						}
-						if (cookie.getName().equals("password")) {
-							password = cookie.getValue();
-							break;
-						}
-					}
-				} else {
-					System.out.println("We don't have user!");
-				}
-			%>
 		<div id="navbar" class="navbar-collapse collapse">
 			<%if(username != null) { %>
 			<ul class="nav navbar-nav navbar-right">
@@ -204,7 +207,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				
 				<%} else if (function.equals("post")) { %>
-					<h2 class="sub-header">Section title</h2>
+					<h2 class="sub-header">帖子管理</h2>
+					<div class="jumbotron">
+						<h2>暂时放在论坛页面管理，这样比较快捷</h2>
+					</div>
 				<%} else if (function.equals("user")) { %>
 					<h2 class="sub-header">用户管理</h2>
 					<%

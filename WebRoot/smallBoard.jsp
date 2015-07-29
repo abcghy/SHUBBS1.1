@@ -95,6 +95,9 @@ pageEncoding="utf-8"%>
 						<li><a href="login!logout">Exit</a></li>
 					</ul>
 				<%} else {%>
+					<div class="navbar-form navbar-left">
+						<a href="login.jsp#toregister"><button class="btn btn-danger">注册</button></a>
+					</div>
 					<form class="navbar-form navbar-right" method="post" action="login">
 						<div class="form-group">
 							<input type="text" placeholder="Username" name="username" class="form-control">
@@ -213,10 +216,10 @@ pageEncoding="utf-8"%>
             		Query postFindLatestReplyQuery = session1.createQuery("from Reply where postid=" + thePost.getPostid() + " order by reply_id desc");
             		List<Reply> postFindLatestReplyList = postFindLatestReplyQuery.list();
             		if (postFindLatestReplyList.size() == 0) {
-            			out.println("前</td><td>"+thePost.getUserinfo().getAdmin()+"<br/>"+Time.howLong(thePost.getCreatetime())+"</td></tr>");
+            			out.println("前</td><td>"+thePost.getUserinfo().getAdmin()+"<br/>"+Time.howLong(thePost.getCreatetime())+"前</td></tr>");
             		} else {
             			Reply theReply = postFindLatestReplyList.get(0);
-                		out.println("前</td><td>"+theReply.getUserinfo().getAdmin()+"<br/>"+Time.howLong(theReply.getReplyCreatetime())+"</td></tr>");
+                		out.println("前</td><td>"+theReply.getUserinfo().getAdmin()+"<br/>"+Time.howLong(theReply.getReplyCreatetime())+"前</td></tr>");
             		}
             	}
             %>

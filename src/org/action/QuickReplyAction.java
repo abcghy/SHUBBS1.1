@@ -55,30 +55,35 @@ public class QuickReplyAction extends ActionSupport{
 		
 		Session session = HibernateSessionFactory.getSession();
 		Transaction trans = session.beginTransaction();
-		trans.begin();
-		Reply reply = new Reply();
-		Query postidFindReplyIdQuery = session.createQuery("from Reply order by reply_id desc");
-		postidFindReplyIdQuery.setFirstResult(0);
-		postidFindReplyIdQuery.setMaxResults(1);
-		List<Reply> postidFindReplyIdList = postidFindReplyIdQuery.list();
-		Reply theReply = postidFindReplyIdList.get(0);
-		long replyid = theReply.getReplyId() + 1;
-		reply.setReplyId(replyid);
-		Userinfo ui = new Userinfo();
-		ui.setAdmin(username);
-		reply.setUserinfo(ui);
-		Posts post = new Posts();
-		post.setPostid(Integer.parseInt(postid));
-		reply.setPosts(post);
-		reply.setReplyContent(getContent());
-		
-		Date date = new Date();
-		Timestamp ts = new Timestamp(date.getTime());
-		reply.setReplyCreatetime(ts);
-		
-		session.save(reply);
-		trans.commit();
-		session.close();
+		try {
+			Reply reply = new Reply();
+			Query postidFindReplyIdQuery = session.createQuery("from Reply order by reply_id desc");
+			postidFindReplyIdQuery.setFirstResult(0);
+			postidFindReplyIdQuery.setMaxResults(1);
+			List<Reply> postidFindReplyIdList = postidFindReplyIdQuery.list();
+			Reply theReply = postidFindReplyIdList.get(0);
+			long replyid = theReply.getReplyId() + 1;
+			reply.setReplyId(replyid);
+			Userinfo ui = new Userinfo();
+			ui.setAdmin(username);
+			reply.setUserinfo(ui);
+			Posts post = new Posts();
+			post.setPostid(Integer.parseInt(postid));
+			reply.setPosts(post);
+			reply.setReplyContent(getContent());
+			
+			Date date = new Date();
+			Timestamp ts = new Timestamp(date.getTime());
+			reply.setReplyCreatetime(ts);
+			
+			session.save(reply);
+			trans.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ERROR;
+		} finally {
+			session.close();
+		}
 		return SUCCESS;
 	}
 }

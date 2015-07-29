@@ -62,34 +62,39 @@ public class QuickPostAction extends ActionSupport{
 		
 		Session session = HibernateSessionFactory.getSession();
 		Transaction trans = session.beginTransaction();
-		trans.begin();
-		Posts post = new Posts();
-		Query smboidFindPostIdQuery = session.createQuery("from Posts order by postid desc");
-		smboidFindPostIdQuery.setFirstResult(0);
-		smboidFindPostIdQuery.setMaxResults(1);
-		List<Posts> smboidFindPostIdList = smboidFindPostIdQuery.list();
-		int postId = smboidFindPostIdList.get(0).getPostid() + 1;
-		post.setPostid(postId);
-		post.setTitle(getTitle());
-		Smallboard sm = new Smallboard();
-		sm.setSmBoidid(Integer.parseInt(getSmboidid()));
-		post.setSmallboard(sm);
-		Userinfo ui = new Userinfo();
-		ui.setAdmin(username);
-		post.setUserinfo(ui);
-		
-		Date date = new Date();
-		Timestamp ts = new Timestamp(date.getTime());
-		post.setCreatetime(ts);
-		
-		post.setContent(getContent());
-		
-		post.setGoodcount(0);
-		post.setReply(0);
-		post.setEssence(0);
-		session.save(post);
-		trans.commit();
-		session.close();
+		try {
+			Posts post = new Posts();
+			Query smboidFindPostIdQuery = session.createQuery("from Posts order by postid desc");
+			smboidFindPostIdQuery.setFirstResult(0);
+			smboidFindPostIdQuery.setMaxResults(1);
+			List<Posts> smboidFindPostIdList = smboidFindPostIdQuery.list();
+			int postId = smboidFindPostIdList.get(0).getPostid() + 1;
+			post.setPostid(postId);
+			post.setTitle(getTitle());
+			Smallboard sm = new Smallboard();
+			sm.setSmBoidid(Integer.parseInt(getSmboidid()));
+			post.setSmallboard(sm);
+			Userinfo ui = new Userinfo();
+			ui.setAdmin(username);
+			post.setUserinfo(ui);
+			
+			Date date = new Date();
+			Timestamp ts = new Timestamp(date.getTime());
+			post.setCreatetime(ts);
+			
+			post.setContent(getContent());
+			
+			post.setGoodcount(0);
+			post.setReply(0);
+			post.setEssence(0);
+			session.save(post);
+			trans.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ERROR;
+		} finally {
+			session.close();
+		}
 		return SUCCESS;
 	}
 }

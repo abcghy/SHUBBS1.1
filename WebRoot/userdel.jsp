@@ -21,11 +21,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	List<Userinfo> findUserList = findUserQuery.list();
 	if (findUserList.size() > 0) {
 		Userinfo ui = findUserList.get(0);
-		Transaction trans = session1.beginTransaction();
-		session1.delete(ui);
-		trans.commit();
+		try {
+			Transaction trans = session1.beginTransaction();
+			session1.delete(ui);
+			trans.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session1.close();
+		}
 	}
-	session1.flush();
-	session1.clear();
-	session1.close();
 %>

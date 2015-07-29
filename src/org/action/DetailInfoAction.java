@@ -53,17 +53,22 @@ public class DetailInfoAction extends ActionSupport{
 		}
 		Session session = HibernateSessionFactory.getSession();
 		Transaction trans = session.beginTransaction();
-		trans.begin();
-		Query query = session.createQuery("from Userinfo where admin=\'" + username + "\'");
-		List<Userinfo> list = query.list();
-		Userinfo ui = list.get(0);
-		ui.setSex(getSex());
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		ui.setBirthdate(sdf.parse(getBirthdate()));
-		ui.setPhone(getPhonenumber());
-		session.update(ui);
-		trans.commit();
-		session.close();
+		try {
+			Query query = session.createQuery("from Userinfo where admin=\'" + username + "\'");
+			List<Userinfo> list = query.list();
+			Userinfo ui = list.get(0);
+			ui.setSex(getSex());
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			ui.setBirthdate(sdf.parse(getBirthdate()));
+			ui.setPhone(getPhonenumber());
+			session.update(ui);
+			trans.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ERROR;
+		} finally {
+			session.close();
+		}
 		return SUCCESS;
 	}
 	

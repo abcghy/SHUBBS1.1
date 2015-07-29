@@ -69,14 +69,18 @@ public class SignupAction extends ActionSupport {
 			return "usererror";
 		} else if (flag == 1) {
 			Transaction trans = session.beginTransaction();
-			trans.begin();
-			Date date = new Date();
-			Timestamp timestamp = new Timestamp(date.getTime());
-			Userinfo userinfo = new Userinfo(usernamesignup, passwordsignup,
-					emailsignup, 1, timestamp);
-			session.save(userinfo);
-			trans.commit();
-			session.close();
+			try {
+				Date date = new Date();
+				Timestamp timestamp = new Timestamp(date.getTime());
+				Userinfo userinfo = new Userinfo(usernamesignup, passwordsignup,
+						emailsignup, 1, timestamp);
+				session.save(userinfo);
+				trans.commit();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				session.close();
+			}
 			return SUCCESS;
 		} else {
 			return "pswderror";

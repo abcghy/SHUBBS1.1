@@ -50,6 +50,7 @@
                                 <p class="change_link">
 									Not a member yet ?
 									<a href="#toregister" class="to_register">Join us</a>
+									<a href="welcome.jsp">Just look</a>
 								</p>
                             </form>
                         </div>

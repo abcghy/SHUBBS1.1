@@ -27,22 +27,27 @@ public class AddModule extends ActionSupport{
 	@Override
 	public String execute() throws Exception {
 		Session session = HibernateSessionFactory.getSession();
-		Transaction trans = session.beginTransaction();
-		trans.begin();
-		Smallboard sb = new Smallboard();
-		Bigboard bb = new Bigboard();
-		bb.setBiBoid(getBiboid());
-		sb.setBigboard(bb);
-		sb.setSmBoTitle(getSmbotitle());
-		Query lastSmBoIdQuery = session.createQuery("from Smallboard order by smboidid desc");
-		lastSmBoIdQuery.setFirstResult(0);
-		lastSmBoIdQuery.setMaxResults(1);
-		Smallboard theSB = (Smallboard) lastSmBoIdQuery.list().get(0);
-		int smboidid = theSB.getSmBoidid() + 1;
-		sb.setSmBoidid(smboidid);
-		session.save(sb);
-		trans.commit();
-		session.close();
+		try {
+			Transaction trans = session.beginTransaction();
+			Smallboard sb = new Smallboard();
+			Bigboard bb = new Bigboard();
+			bb.setBiBoid(getBiboid());
+			sb.setBigboard(bb);
+			sb.setSmBoTitle(getSmbotitle());
+			Query lastSmBoIdQuery = session.createQuery("from Smallboard order by smboidid desc");
+			lastSmBoIdQuery.setFirstResult(0);
+			lastSmBoIdQuery.setMaxResults(1);
+			Smallboard theSB = (Smallboard) lastSmBoIdQuery.list().get(0);
+			int smboidid = theSB.getSmBoidid() + 1;
+			sb.setSmBoidid(smboidid);
+			session.save(sb);
+			trans.commit();
+		} catch(Exception e) {
+			e.printStackTrace();
+			return ERROR;
+		} finally {
+			session.close();
+		}
 		return SUCCESS;
 	}
 }

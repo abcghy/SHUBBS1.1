@@ -67,14 +67,18 @@ public class ChangePasswordAction extends ActionSupport{
 		} else if (flag == 1) {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction trans = session.beginTransaction();
-			trans.begin();
-			Query query = session.createQuery("from Userinfo where admin=\'" + username + "\'");
-			List<Userinfo> list = query.list();
-			Userinfo ui = list.get(0);
-			ui.setPwd(getNewpassword());
-			session.update(ui);
-			trans.commit();
-			session.close();
+			try {
+				Query query = session.createQuery("from Userinfo where admin=\'" + username + "\'");
+				List<Userinfo> list = query.list();
+				Userinfo ui = list.get(0);
+				ui.setPwd(getNewpassword());
+				session.update(ui);
+				trans.commit();
+			} catch (Exception e){
+				e.printStackTrace();
+			} finally {
+				session.close();
+			}
 			return SUCCESS;
 		} else {
 			return "notequal";

@@ -166,11 +166,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		List<Posts> usernameFindPostIdList = usernameFindPostIdQuery.list();
 		Posts thePost = usernameFindPostIdList.get(0);
 		int postid = thePost.getPostid();
+		session1.close();
 		String content = 3+";URL=post.jsp?pId="+postid;
 		response.setHeader("REFRESH",content);
 	%>
 	
-	<%session1.close(); %>
+	
 	
 </body>
 </html>

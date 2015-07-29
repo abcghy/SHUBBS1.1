@@ -18,6 +18,7 @@
 		</action>
 		<action name="detailinfo" class="org.action.DetailInfoAction">
 			<result name="success">/info.jsp</result>
+			<result name="error">/info.jsp</result>
 		</action>
 		<action name="changepassword" class="org.action.ChangePasswordAction">
 			<result name="success">/info.jsp</result>
@@ -26,15 +27,19 @@
 		</action>
 		<action name="quickpost" class="org.action.QuickPostAction">
 			<result name="success">/CachePage/postcache.jsp</result>
+			<result name="error">/CachePage/postcache.jsp</result>
 		</action>
 		<action name="quickreply" class="org.action.QuickReplyAction">
 			<result name="success">/CachePage/replycache.jsp</result>
+			<result name="error">/CachePage/replycache.jsp</result>
 		</action>
 		<action name="addModule" class="org.action.AddModule">
 			<result name="success">/dashboard.jsp?func=module</result>
+			<result name="error">/dashboard.jsp?func=module</result>
 		</action>
 		<action name="deleteModule" class="org.action.DeleteModule">
 			<result name="success">/dashboard.jsp?func=module</result>
+			<result name="error">/dashboard.jsp?func=module</result>
 		</action>
 	</package>
 </struts>

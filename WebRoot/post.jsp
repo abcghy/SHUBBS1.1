@@ -89,6 +89,9 @@ import="java.util.*,
 						<li><a href="login!logout">Exit</a></li>
 					</ul>
 				<%} else {%>
+					<div class="navbar-form navbar-left">
+						<a href="login.jsp#toregister"><button class="btn btn-danger">注册</button></a>
+					</div>
 					<form class="navbar-form navbar-right" method="post" action="login">
 						<div class="form-group">
 							<input type="text" placeholder="Username" name="username" class="form-control">
@@ -214,7 +217,7 @@ import="java.util.*,
 	        	<tr>
 	                <td class="author">
 	                    <span class="col-md-8"><%=thePost.getUserinfo().getAdmin()%></span>
-	                    <span class="col-md-4">#0</span>
+	                    <span class="col-md-4 badge">0</span>
 	                    <span class="col-md-12">注册：<%=registersdf.format(thePost.getUserinfo().getRegisterdate())%></span>
 	                </td> <!--发布者用户名,要靠左-->
 	                <td>
@@ -228,7 +231,7 @@ import="java.util.*,
 	        		int replyFloor = queryNum + i + 1;
 	        		Reply theReply = pageNumFindReplyList.get(i);
 	        		out.println("<tr><td class=\"author\"><span class=\"col-md-8\">"+theReply.getUserinfo().getAdmin() + "</span>");
-	        		out.println("<span class=\"col-md-4\">#" + replyFloor + "</span>");
+	        		out.println("<span class=\"col-md-4 badge\">" + replyFloor + "</span>");
 	        		out.println("<span class=\"col-md-12\">注册：" + registersdf.format(theReply.getUserinfo().getRegisterdate()) + "</span></td>");
 	        		out.println("<td><span class=\"content-title col-md-10\"></span>");
 	        		out.println("<span class=\"post-time col-md-2\">" + createsdf.format(theReply.getReplyCreatetime()) + "</span><span>");

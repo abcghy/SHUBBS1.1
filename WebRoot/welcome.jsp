@@ -76,6 +76,9 @@ pageEncoding="utf-8"%>
 						<li><a href="login!logout">Exit</a></li>
 					</ul>
 				<%} else {%>
+					<div class="navbar-form navbar-left">
+						<a href="login.jsp#toregister"><button class="btn btn-danger">注册</button></a>
+					</div>
 					<form class="navbar-form navbar-right" method="post" action="login">
 						<div class="form-group">
 							<input type="text" placeholder="Username" name="username" class="form-control">

@@ -172,12 +172,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		final int NUMPERPAGE = 20;
 		long howManyPost = (Long) postIdFindPageQuery.uniqueResult();
 		long howManyPage = howManyPost / NUMPERPAGE + 1;
-		
+		session1.close();
 		String content = 3+";URL=post.jsp?pId="+postid+"&pageNum="+howManyPage;
 		response.setHeader("REFRESH",content);
 	%>
 	
-	<%session1.close(); %>
 	
 </body>
 </html>
