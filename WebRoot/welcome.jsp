@@ -7,7 +7,8 @@ import="java.util.*,
 		org.hibernate.Query,
 		java.util.List,
 		org.model.Bigboard,
-		org.model.Smallboard"
+		org.model.Smallboard,
+		org.model.Userinfo"
 pageEncoding="utf-8"%>
 <%
 	String path = request.getContextPath();
@@ -37,6 +38,11 @@ pageEncoding="utf-8"%>
 	<link href="css/carousel.css" rel="stylesheet">
 </head>
 <body>
+	<%
+		Session session1 = HibernateSessionFactory.getSession();
+		Query query1 = session1.createQuery("from Bigboard order by biboid");
+		List<Bigboard> list1 = query1.list();
+	%>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -72,6 +78,15 @@ pageEncoding="utf-8"%>
 				<%if(username != null) { %>
 					<ul class="nav navbar-nav navbar-right">
 						<li class="active"><a href="welcome.jsp">Home</a></li>
+						<%
+							Query findRoleIdQuery = session1.createQuery("from Userinfo where admin='" + username+ "'");
+							List<Userinfo> findRoleIdList = findRoleIdQuery.list();
+							Userinfo theUser = findRoleIdList.get(0);
+							int roleId = theUser.getRoleid();
+							if (roleId == 1) {
+						%>
+						<li><a href="dashboard.jsp">Dash</a></li>
+						<%}%>
 						<li><a href="info.jsp"><%=username%></a></li>
 						<li><a href="login!logout">Exit</a></li>
 					</ul>
@@ -144,12 +159,6 @@ pageEncoding="utf-8"%>
 		</a>
 	</div>
 	
-	<%
-		Session session1 = HibernateSessionFactory.getSession();
-		Query query1 = session1.createQuery("from Bigboard order by biboid");
-		List<Bigboard> list1 = query1.list();
-	%>
-
 	<div class="container">
 		<%
 			if (list1.size() > 0) {

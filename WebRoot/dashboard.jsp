@@ -1,5 +1,5 @@
 <%@ page language="java"
-	import="java.util.*,
+import="java.util.*,
 		com.opensymphony.xwork2.ActionContext,
 		org.util.HibernateSessionFactory,
 		org.apache.struts2.ServletActionContext,
@@ -38,6 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
+	<%Session session1 = HibernateSessionFactory.getSession(); %>
 	<%
 		HttpServletRequest request1 = ServletActionContext.getRequest();
 		Cookie[] cookies = request1.getCookies();
@@ -59,6 +60,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		if(username == null) {
 			response.sendRedirect(basePath+"login!login");
 		}
+		Query findRoleIdQuery = session1.createQuery("from Userinfo where admin='" + username+ "'");
+		List<Userinfo> findRoleIdList = findRoleIdQuery.list();
+		Userinfo theUser = findRoleIdList.get(0);
+		int roleId = theUser.getRoleid();
+		if (roleId == 0) {
+			response.sendRedirect(basePath+"welcome.jsp");
+		}
 	%>
 	<%
 		String function = request.getParameter("func");
@@ -66,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			function = "module";
 		}
 	%>
-	<%Session session1 = HibernateSessionFactory.getSession(); %>
+	
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
@@ -82,7 +90,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div id="navbar" class="navbar-collapse collapse">
 			<%if(username != null) { %>
 			<ul class="nav navbar-nav navbar-right">
-				<li class="active"><a href="welcome.jsp">Home</a></li>
+				<li><a href="welcome.jsp">Home</a></li>
+				<%
+					if (roleId == 1) {
+				%>
+				<li class="active"><a href="dashboard.jsp">Dash</a></li>
+				<%}%>
 				<li><a href="info.jsp"><%=username%></a></li>
 				<li><a href="login!logout">Exit</a></li>
 			</ul>
@@ -229,6 +242,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<th>电话</th>
 								<th>等级</th>
 								<th>注册时间</th>
+								<th>角色</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -237,7 +251,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								Userinfo theUI = userList.get(i);
 						%>
 							<tr>
-								<td><input type="button" class="btn btn-danger delete" value="删除"/></td>
+								<td><input type="button" class="btn btn-danger delete" 
+								<%
+									if(theUI.getRoleid() == 1) {out.print("disabled=\"disabled\"");}
+								%>value="删除"/></td>
 								<td class="username"><%=theUI.getAdmin()%></td>
 								<td><%=theUI.getEmail()%></td>
 								<td><%=theUI.getSex()%></td>
@@ -249,6 +266,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<td><%=theUI.getPhone()%></td>
 								<td><%=theUI.getUserlevel()%></td>
 								<td><%=Time.fullFormat(theUI.getRegisterdate())%></td>
+								<td><%
+									if (theUI.getRoleid() == 1) {
+										out.print("管理");
+									} else {
+										out.print("用户");
+									}
+								%></td>
 							</tr>
 						<%} %>
 						</tbody>

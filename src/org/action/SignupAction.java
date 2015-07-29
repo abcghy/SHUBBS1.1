@@ -74,6 +74,7 @@ public class SignupAction extends ActionSupport {
 				Timestamp timestamp = new Timestamp(date.getTime());
 				Userinfo userinfo = new Userinfo(usernamesignup, passwordsignup,
 						emailsignup, 1, timestamp);
+				userinfo.setRoleid(0);
 				session.save(userinfo);
 				trans.commit();
 			} catch (Exception e) {

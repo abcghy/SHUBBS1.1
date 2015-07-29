@@ -92,6 +92,15 @@
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="welcome.jsp">Home</a></li>
+				<%
+					Query findRoleIdQuery = session1.createQuery("from Userinfo where admin='" + username+ "'");
+					List<Userinfo> findRoleIdList = findRoleIdQuery.list();
+					Userinfo theUser = findRoleIdList.get(0);
+					int roleId = theUser.getRoleid();
+					if (roleId == 1) {
+				%>
+				<li><a href="dashboard.jsp">Dash</a></li>
+				<%}%>
 				<li class="active"><a href="info.jsp"><%=username%></a></li>
 				<li><a href="login!logout">Exit</a></li>
 			</ul>

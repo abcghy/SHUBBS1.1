@@ -11,7 +11,8 @@ import="java.util.*,
 		org.model.Smallboard,
 		org.model.Posts,
 		java.text.SimpleDateFormat,
-		org.model.Reply" 
+		org.model.Reply,
+		org.model.Userinfo" 
 pageEncoding="utf-8"%>
 <%
 	String path = request.getContextPath();
@@ -88,9 +89,20 @@ pageEncoding="utf-8"%>
 	            <a class="navbar-brand" href="welcome.jsp">SHUBBS</a>
 	        </div>
 	        <div id="navbar" class="navbar-collapse collapse">
+	        <%
+		        Query findRoleIdQuery = session1.createQuery("from Userinfo where admin='" + username+ "'");
+				List<Userinfo> findRoleIdList = findRoleIdQuery.list();
+				Userinfo theUser = findRoleIdList.get(0);
+				int roleId = theUser.getRoleid();
+	        %>
 	            <%if(username != null) { %>
 					<ul class="nav navbar-nav navbar-right">
-						<li class="active"><a href="welcome.jsp">Home</a></li>
+						<li><a href="welcome.jsp">Home</a></li>
+						<%
+							if (roleId == 1) {
+						%>
+						<li><a href="dashboard.jsp">Dash</a></li>
+						<%}%>
 						<li><a href="info.jsp"><%=username%></a></li>
 						<li><a href="login!logout">Exit</a></li>
 					</ul>
@@ -211,7 +223,11 @@ pageEncoding="utf-8"%>
             		Posts thePost = pageNumFindPostList.get(i);
             		Query postFindReplyNumQuery = session1.createQuery("select count(*) from Reply where postid =" + thePost.getPostid());
             		long replyNum = (Long) postFindReplyNumQuery.uniqueResult();
-            		out.println("<tr><td>"+replyNum+"</td><td class=\"thread\"><a href=\"post.jsp?pId="+thePost.getPostid()+"\">"+thePost.getTitle()+"</a></td><td>"+thePost.getUserinfo().getAdmin()+"<br/>");
+            		out.print("<tr><td>"+replyNum+"</td><td class=\"thread\"><a href=\"post.jsp?pId="+thePost.getPostid()+"\">"+thePost.getTitle()+"</a>");
+            		if(roleId == 1) {
+            			out.print("<button class=\"btn btn-danger delpost\">删</button>");
+            		}
+            		out.print("</td><td>"+thePost.getUserinfo().getAdmin()+"<br/>");
             		out.print(Time.howLong(thePost.getCreatetime()));
             		Query postFindLatestReplyQuery = session1.createQuery("from Reply where postid=" + thePost.getPostid() + " order by reply_id desc");
             		List<Reply> postFindLatestReplyList = postFindLatestReplyQuery.list();
@@ -337,6 +353,19 @@ pageEncoding="utf-8"%>
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".delpost").click(function() {
+				var xmlhttp;
+				xmlhttp = new XMLHttpRequest();
+				var string = $(this).prev().attr('href');
+				var postId = string.slice(13);
+				xmlhttp.open("get", "delpost.jsp?postId="+postId, true);
+				xmlhttp.send();
+				setTimeout(location.reload(true), 2000);
+			});
+		});
+	</script>
 	<%session1.close(); %>
 	
 </body>

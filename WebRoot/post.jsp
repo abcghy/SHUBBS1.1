@@ -10,7 +10,8 @@ import="java.util.*,
 		org.model.Smallboard,
 		org.model.Posts,
 		java.text.SimpleDateFormat,
-		org.model.Reply" pageEncoding="utf-8"%>
+		org.model.Reply,
+		org.model.Userinfo" pageEncoding="utf-8"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -39,6 +40,7 @@ import="java.util.*,
 	    <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 	</head>
 	<body>
+	
 	<%
 		//pId是postid，pageNum是页面数
 		int pId = Integer.parseInt(request.getParameter("pId"));
@@ -49,6 +51,12 @@ import="java.util.*,
 		} else {
 			pageNum = Integer.parseInt(temp);
 		}
+	%>
+	<%
+		Session session1 = HibernateSessionFactory.getSession();
+		Query postIdFindSmIdQuery = session1.createQuery("from Posts where postid=" + pId);
+		List<Posts> postIdFindSmIdList = postIdFindSmIdQuery.list();
+		Posts thePost = postIdFindSmIdList.get(0);
 	%>
 	<%
 		HttpServletRequest request1 = ServletActionContext.getRequest();
@@ -84,7 +92,16 @@ import="java.util.*,
 	        <div id="navbar" class="navbar-collapse collapse">
 	            <%if(username != null) { %>
 					<ul class="nav navbar-nav navbar-right">
-						<li class="active"><a href="welcome.jsp">Home</a></li>
+						<li><a href="welcome.jsp">Home</a></li>
+						<%
+							Query findRoleIdQuery = session1.createQuery("from Userinfo where admin='" + username+ "'");
+							List<Userinfo> findRoleIdList = findRoleIdQuery.list();
+							Userinfo theUser = findRoleIdList.get(0);
+							int roleId = theUser.getRoleid();
+							if (roleId == 1) {
+						%>
+						<li><a href="dashboard.jsp">Dash</a></li>
+						<%}%>
 						<li><a href="info.jsp"><%=username%></a></li>
 						<li><a href="login!logout">Exit</a></li>
 					</ul>
@@ -105,13 +122,6 @@ import="java.util.*,
 	        </div>
 	    </div>
 	</nav>
-	
-	<%
-		Session session1 = HibernateSessionFactory.getSession();
-		Query postIdFindSmIdQuery = session1.createQuery("from Posts where postid=" + pId);
-		List<Posts> postIdFindSmIdList = postIdFindSmIdQuery.list();
-		Posts thePost = postIdFindSmIdList.get(0);
-	%>
 	
 	<div class="placeNow">
 	    <span>当前位置：</span>
