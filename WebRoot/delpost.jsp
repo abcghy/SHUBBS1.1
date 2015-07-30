@@ -18,7 +18,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 <%
 	String postId = request.getParameter("postId");
-	System.out.println(postId);
 	Session session1 = HibernateSessionFactory.getSession();
 	Query postIdDeletePostQuery = session1.createQuery("from Posts where postid="+postId);
 	List<Posts> postIdDeletePostList = postIdDeletePostQuery.list();

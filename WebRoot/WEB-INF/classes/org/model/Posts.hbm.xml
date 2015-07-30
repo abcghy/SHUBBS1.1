@@ -34,6 +34,9 @@
         <property name="essence" type="java.lang.Integer">
             <column name="essence" />
         </property>
+        <property name="updatetime" type="java.sql.Timestamp">
+            <column name="updatetime" length="19" />
+        </property>
         <set name="replies" inverse="true">
             <key>
                 <column name="postid" />

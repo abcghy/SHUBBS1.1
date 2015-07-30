@@ -61,8 +61,13 @@ public class QuickReplyAction extends ActionSupport{
 			postidFindReplyIdQuery.setFirstResult(0);
 			postidFindReplyIdQuery.setMaxResults(1);
 			List<Reply> postidFindReplyIdList = postidFindReplyIdQuery.list();
-			Reply theReply = postidFindReplyIdList.get(0);
-			long replyid = theReply.getReplyId() + 1;
+			long replyid;
+			if (postidFindReplyIdList.size() != 0) {
+				Reply theReply = postidFindReplyIdList.get(0);
+				replyid = theReply.getReplyId() + 1;
+			} else {
+				replyid = 1;
+			}
 			reply.setReplyId(replyid);
 			Userinfo ui = new Userinfo();
 			ui.setAdmin(username);
@@ -75,7 +80,12 @@ public class QuickReplyAction extends ActionSupport{
 			Date date = new Date();
 			Timestamp ts = new Timestamp(date.getTime());
 			reply.setReplyCreatetime(ts);
-			
+			Query findPostsQuery = session.createQuery("from Posts where postid=" + getPostid());
+			List<Posts> findPostsList = findPostsQuery.list();
+			Posts thePost = findPostsList.get(0);
+			thePost.setUpdatetime(ts);
+			reply.getPosts().setUpdatetime(ts);
+			session.save(thePost);
 			session.save(reply);
 			trans.commit();
 		} catch (Exception e) {

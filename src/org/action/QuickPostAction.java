@@ -68,7 +68,12 @@ public class QuickPostAction extends ActionSupport{
 			smboidFindPostIdQuery.setFirstResult(0);
 			smboidFindPostIdQuery.setMaxResults(1);
 			List<Posts> smboidFindPostIdList = smboidFindPostIdQuery.list();
-			int postId = smboidFindPostIdList.get(0).getPostid() + 1;
+			int postId;
+			if (smboidFindPostIdList.size() != 0) {
+				postId = smboidFindPostIdList.get(0).getPostid() + 1;
+			} else {
+				postId = 1;
+			}
 			post.setPostid(postId);
 			post.setTitle(getTitle());
 			Smallboard sm = new Smallboard();
@@ -81,7 +86,7 @@ public class QuickPostAction extends ActionSupport{
 			Date date = new Date();
 			Timestamp ts = new Timestamp(date.getTime());
 			post.setCreatetime(ts);
-			
+			post.setUpdatetime(ts);
 			post.setContent(getContent());
 			
 			post.setGoodcount(0);

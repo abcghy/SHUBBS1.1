@@ -215,7 +215,7 @@ pageEncoding="utf-8"%>
 	        <tbody>
             <%
             	int queryNum = (pageNum - 1) * 30;
-            	Query pageNumFindPostQuery = session1.createQuery("from Posts where smboidid="+ aId + " order by postid desc");
+            	Query pageNumFindPostQuery = session1.createQuery("from Posts where smboidid="+ aId + " order by updatetime desc");
             	pageNumFindPostQuery.setFirstResult(queryNum);
             	pageNumFindPostQuery.setMaxResults(30);
             	List<Posts> pageNumFindPostList = pageNumFindPostQuery.list();

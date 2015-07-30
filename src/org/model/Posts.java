@@ -21,6 +21,7 @@ public class Posts implements java.io.Serializable {
 	private Integer goodcount;
 	private Integer reply;
 	private Integer essence;
+	private Timestamp updatetime;
 	private Set replies = new HashSet(0);
 
 	// Constructors
@@ -37,7 +38,8 @@ public class Posts implements java.io.Serializable {
 	/** full constructor */
 	public Posts(Integer postid, Userinfo userinfo, Smallboard smallboard,
 			String title, Timestamp createtime, String content,
-			Integer goodcount, Integer reply, Integer essence, Set replies) {
+			Integer goodcount, Integer reply, Integer essence,
+			Timestamp updatetime, Set replies) {
 		this.postid = postid;
 		this.userinfo = userinfo;
 		this.smallboard = smallboard;
@@ -47,6 +49,7 @@ public class Posts implements java.io.Serializable {
 		this.goodcount = goodcount;
 		this.reply = reply;
 		this.essence = essence;
+		this.updatetime = updatetime;
 		this.replies = replies;
 	}
 
@@ -122,6 +125,14 @@ public class Posts implements java.io.Serializable {
 
 	public void setEssence(Integer essence) {
 		this.essence = essence;
+	}
+
+	public Timestamp getUpdatetime() {
+		return this.updatetime;
+	}
+
+	public void setUpdatetime(Timestamp updatetime) {
+		this.updatetime = updatetime;
 	}
 
 	public Set getReplies() {
